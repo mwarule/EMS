@@ -10,6 +10,6 @@ const env = {
         acquire: 30000,
         idle: 10000
     }
-  };
+};
 
-  module.exports = env;
+module.exports = env;

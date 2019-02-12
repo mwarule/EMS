@@ -1,0 +1,50 @@
+<div class="layout-wrapper">
+    <app-header></app-header>
+    <div class="layout-content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1>Employees</h1>
+                    <p-table #dt [columns]="cols" [value]="employees" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="caption">
+                            <p-toolbar>
+                                <div class="ui-toolbar-group-left">
+                                    <div class="ui-inputgroup">
+                                        <button label="Search" pbutton="" type="button" class="ui-button ui-button-text-only">
+                                        <span class="ui-button-text">Search</span>
+                                      </button>
+                                        <input pinputtext="" size="50" placeholder="Search employees.." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto" type="text" class="ui-inputtext">
+                                    </div>
+                                </div>
+
+                                <div class="ui-toolbar-group-right">
+                                    <button pTooltip="Add new employee" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" tooltipPosition="top" type="button">Create</button>
+                                </div>
+                            </p-toolbar>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr [pSelectableRow]="rowData">
+                                <td *ngFor="let col of columns">
+                                    <span *ngIf="col.field === 'dateCreated'">
+                                      {{rowData[col.field] | date: 'dd MMM yyyy'}}
+                                  </span>
+                                    <span *ngIf="col.field !== 'dateCreated'">
+                                      {{rowData[col.field]}}
+                                  </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <app-footer></app-footer> -->
+</div>
