@@ -6,6 +6,7 @@ import { EmployeeService } from './services/employee.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WindowRef } from './services/window-ref';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CoreRoutingModule
   ],
   providers: [
-    EmployeeService
+    EmployeeService,
+    WindowRef
   ],
   declarations: [],
   exports: [

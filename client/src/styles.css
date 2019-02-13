@@ -12240,3 +12240,7 @@ body.main-body {
     width:100%;
     height: 32px;
 }
+
+.ui-no-content{
+    text-align:center;
+}

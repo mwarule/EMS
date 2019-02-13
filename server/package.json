@@ -4,6 +4,7 @@
   "description": "A Basic Employee Management Application using Angular 5, Node.js, Express and MySQL with Sequelize ORM. ",
   "main": "index.js",
   "scripts": {
+    "start":"node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mahesh Warule",

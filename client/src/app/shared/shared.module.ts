@@ -12,6 +12,7 @@ import {DialogModule} from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { FooterComponent } from './components/footer/footer.component';
     TooltipModule,
     ToastModule,
     ToolbarModule,
+    ConfirmDialogModule,
     SharedRoutingModule
   ],
   declarations: [HeaderComponent, FooterComponent],
@@ -35,6 +37,7 @@ import { FooterComponent } from './components/footer/footer.component';
     TooltipModule,
     ToastModule,
     ToolbarModule,
+    ConfirmDialogModule,
     ReactiveFormsModule,
     HeaderComponent,
     FooterComponent

@@ -2,16 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../core/models/employee';
 import { EmployeeService } from '../../core/services/employee.service';
 import { first } from 'rxjs/operators';
+import { Message } from 'primeng/components/common/message';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css']
+  styleUrls: ['./employee-list.component.css'],
+  providers: [ConfirmationService, MessageService]
 })
 export class EmployeeListComponent implements OnInit {
   employees: Employee[];
   cols: any[];
-  constructor(private empService: EmployeeService) { }
+  message: string;
+  constructor(private empService: EmployeeService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService) { }
 
   ngOnInit() {
 
@@ -25,22 +32,53 @@ export class EmployeeListComponent implements OnInit {
     this.getEmployees();
   }
 
-   // get all the app roles
-   getEmployees() {
+  // get all the app roles
+  getEmployees() {
     this.employees = [];
     this.empService.findAll()
       .pipe(first())
       .subscribe(
-        response => {
-          this.employees = response['data'];
-        },
-        error => {
-          alert(error);
-        });
+      response => {
+        this.employees = response['data'];
+        if(this.employees.length === 0){
+          this.message = "No Employees found";
+        }
+      },
+      error => {
+        console.log(error);
+      });
   }
 
-  deleteEmployee(empId){
+  confirmEmployeeDeletion(employee) {
+    let empId = employee.id;
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this employee ?',
+      header: 'Delete Employee',
+      icon: 'fa fa-exclamation-triangle',
+      accept: () => {
+        this.deleteEmployee(empId);
+      },
+      reject: () => {
+      }
+    });
+  }
 
+  deleteEmployee(empId) {
+    this.messageService.clear();
+    this.empService.delete(empId)
+      .pipe(first())
+      .subscribe(
+      response => {
+        let data = response['data'];
+        let success = response['success'];
+        if (success && data) {
+          this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Employee deleted successfully' });
+        }
+        this.getEmployees();
+      },
+      error => {
+        console.log(error);
+      });
   }
 
 }
