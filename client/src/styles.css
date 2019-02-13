@@ -12234,3 +12234,9 @@ body.main-body {
 .has-error .error-text {
     color: #ff5652;
 }
+
+
+.full-width{
+    width:100%;
+    height: 32px;
+}

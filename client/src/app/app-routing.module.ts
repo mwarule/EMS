@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'employees',
     loadChildren: './employee/employee.module#EmployeeModule'
   },
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'employees' }
 ];
 
 @NgModule({

@@ -39,4 +39,8 @@ export class EmployeeListComponent implements OnInit {
         });
   }
 
+  deleteEmployee(empId){
+
+  }
+
 }
