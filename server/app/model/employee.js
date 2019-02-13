@@ -7,19 +7,19 @@ module.exports = (sequelize, dataType) => {
         },
         firstName: {
             type: dataType.STRING,
-            validate:{
-                len:{
-                    args: [3,20],
-                    msg:'First Name must be between 3 and 20 characters in length'
+            validate: {
+                len: {
+                    args: [3, 20],
+                    msg: 'First Name must be between 3 and 20 characters in length'
                 }
             }
         },
         lastName: {
             type: dataType.STRING,
-            validate:{
-                len:{
-                    args: [3,20],
-                    msg:'Last Name must be between 3 and 20 characters in length'
+            validate: {
+                len: {
+                    args: [3, 20],
+                    msg: 'Last Name must be between 3 and 20 characters in length'
                 }
             }
         },
@@ -33,7 +33,7 @@ module.exports = (sequelize, dataType) => {
             type: dataType.STRING,
             unique: {
                 args: true,
-                msg:'Email address already in use!'
+                msg: 'Email address already in use!'
             },
             allowNull: false
         },
@@ -42,8 +42,16 @@ module.exports = (sequelize, dataType) => {
             allowNull: false,
             unique: {
                 args: true,
-                msg:'Mobile number already in use!'
+                msg: 'Mobile number already in use!'
             },
+        },
+        designation: {
+            type: dataType.STRING,
+            allowNull: false
+        },
+        primarySkill: {
+            type: dataType.STRING,
+            allowNull: false
         }
     });
 

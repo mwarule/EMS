@@ -3,6 +3,7 @@ const env = require('./env');
 const Sequelize = require('sequelize');
 const EmployeeModel = require('../app/model/employee');
 const DepartmentModel = require('../app/model/department');
+const AddressModel = require('../app/model/address');
 const sequelize = new Sequelize(env.database, env.username, env.password, {
     host: env.host,
     dialect: env.dialect,
@@ -27,7 +28,7 @@ sequelize
 
 // force: true will drop the tables if it already exists
 sequelize.sync({
-    force: false
+    force: true
 }).then(() => {
     console.log('Drop and Resync with { force: false }');
     var departments = [{
@@ -51,16 +52,19 @@ sequelize.sync({
 const EmployeeDepartment = sequelize.define('employee_department', {})
 const Employee = EmployeeModel(sequelize, Sequelize);
 const Department = DepartmentModel(sequelize, Sequelize);
+const Address = AddressModel(sequelize, Sequelize);
 
-Employee.belongsToMany(Department, {
+Employee.Departments = Employee.belongsToMany(Department, {
     through: EmployeeDepartment
 })
-Department.belongsToMany(Employee, {
+Department.Employees = Department.belongsToMany(Employee, {
     through: EmployeeDepartment
 })
 
+Employee.Addresses = Employee.hasMany(Address);
 
 module.exports = {
     Employee,
-    Department
+    Department,
+    Address
 }

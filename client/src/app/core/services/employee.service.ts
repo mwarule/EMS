@@ -27,6 +27,13 @@ export class EmployeeService {
       }));
   }
 
+  findById(employeeId) {
+    return this.http.get<Employee[]>(this.url + employeeId)
+      .pipe(map(response => {
+        return response;
+      }));
+  }
+
   update(employee) {
     return this.http.put<Employee[]>(this.url + employee.id , employee)
       .pipe(map(response => {

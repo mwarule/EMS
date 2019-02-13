@@ -12,9 +12,9 @@ import { WindowRef } from './core/services/window-ref';
 export class AppComponent implements OnInit {
   title = 'client';
 
-  constructor(private winRef: WindowRef){
-
+  constructor(private winRef: WindowRef) {
   }
+
   ngOnInit() {
       // appConfig.apiUrl = this.winRef.nativeWindow.location.origin;
       appConfig.apiUrl = 'http://localhost:3000';

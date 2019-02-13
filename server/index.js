@@ -15,11 +15,11 @@ app.use(express.static('dist'))
 // Setup routes
 app.use('/', routes);
 
-app.get('/*', function(req, res) {
-  //res.sendFile(path.join(__dirname , '/dist/index.html'));
-  res.sendFile("index.html",{root: path.join(__dirname, '/dist')});
-});
+// app.get('/*', function(req, res) {
+//   //res.sendFile(path.join(__dirname , '/dist/index.html'));
+//   res.sendFile("index.html",{root: path.join(__dirname, '/dist')});
+// });
 
-app.listen(global.config.server.PORT, function () {
-  console.log('App is running on ' + global.config.server.PORT);
+app.listen(global.config.server.PORT, function() {
+    console.log('App is running on ' + global.config.server.PORT);
 });

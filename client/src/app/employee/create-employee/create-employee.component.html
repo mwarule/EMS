@@ -1,19 +1,136 @@
+<p-toast position="top-right" life="4000"></p-toast>
 <div class="layout-wrapper">
-  <app-header></app-header>
-  <div class="layout-content">
-    <div class="ui-g">
-      <div class="ui-g-12">
-        <div class="card card-w-title">
-          <h1>Create Employee
-            <button label="Back to Employee List" pTooltip="Back to Employee List" tooltipPosition="left" pbutton="" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-              style="float:right" routerLink="/">
+    <app-header></app-header>
+    <div class="layout-content">
+        <div class="ui-g">
+            <div class="ui-g-10" style="margin:0 auto">
+                <div class="card card-w-title">
+                    <h1>Create Employee
+                        <button label="Back to Employee List" pTooltip="Back to Employee List" tooltipPosition="left" pbutton="" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:right" routerLink="/">
               <span class="ui-button-text ui-clickable">Back</span>
             </button>
-          </h1>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- <app-footer></app-footer> -->
-</div>
+                    </h1>
 
+                    <div class="ui-fluid ems-new-form">
+                        <form [formGroup]="newEmployeeForm" (ngSubmit)="create()">
+                            <h4 class="sub-title">Basic Details</h4>
+                            <div class="ui-g">
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.firstName.errors }">
+                                    <input type="text" pInputText autocomplete="off" formControlName="firstName" class="ui-inputtext" placeholder="First Name">
+                                    <div *ngIf="newForm.firstName.errors && newForm.firstName.dirty" class="error-text">
+                                        <div *ngIf="newForm.firstName.errors.required">First Name is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.lastName.errors }">
+                                    <input type="text" pInputText autocomplete="off" formControlName="lastName" class="ui-inputtext" placeholder="Last Name">
+                                    <div *ngIf="newForm.lastName.errors && newForm.lastName.dirty" class="error-text">
+                                        <div *ngIf="newForm.lastName.errors.required">Last Name is required</div>
+                                    </div>
+                                </div>
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.gender.errors }">
+                                    <p-dropdown [style]="{'width':'100%'}" [options]="genders" formControlName="gender" placeholder="Gender" optionLabel="name" [showClear]="true"></p-dropdown>
+                                    <div *ngIf="newForm.gender.errors && newForm.gender.dirty" class="error-text">
+                                        <div *ngIf="newForm.gender.errors.required">Gender is required</div>
+                                    </div>
+                                </div>
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.dob.errors }">
+                                    <p-calendar dateFormat="dd/mm/yyyy" [style]="{'width':'100%'}" placeholder="Date of birth" formControlName="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+                                    <div *ngIf="newForm.dob.errors && newForm.dob.dirty" class="error-text">
+                                        <div *ngIf="newForm.dob.errors.required">Date of birth is required</div>
+                                    </div>
+                                </div>
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.email.errors }">
+                                    <input type="text" pInputText autocomplete="off" formControlName="email" class="ui-inputtext" placeholder="Email">
+                                    <div *ngIf="newForm.email.errors && newForm.email.dirty" class="error-text">
+                                        <div *ngIf="newForm.email.errors.required">Email is required</div>
+                                        <div *ngIf="newForm.email.errors.email && !newForm.email.errors.required">Email must be a valid email address</div>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.mobile.errors }">
+                                    <input type="number" pInputText autocomplete="off" formControlName="mobile" class="ui-inputtext" placeholder="Mobile Number">
+                                    <div *ngIf="newForm.mobile.errors && newForm.mobile.dirty" class="error-text">
+                                        <div *ngIf="newForm.mobile.errors.required">Mobile is required</div>
+                                        <div *ngIf="newForm.mobile.errors.mobile && !newForm.mobile.errors.required">Enter a valid mobile number</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div formGroupName="address">
+                                <h4 class="sub-title">Address</h4>
+                                <div class="ui-g">
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.country.errors }">
+                                        <input type="text" pInputText autocomplete="off" formControlName="country" class="ui-inputtext" placeholder="Country">
+                                        <div *ngIf="addressForm.country.errors && addressForm.country.dirty" class="error-text">
+                                            <div *ngIf="addressForm.country.errors.required">Country is required</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.state.errors }">
+                                        <input type="text" pInputText autocomplete="off" formControlName="state" class="ui-inputtext" placeholder="State">
+                                        <div *ngIf="addressForm.state.errors && addressForm.state.dirty" class="error-text">
+                                            <div *ngIf="addressForm.state.errors.required">State is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.city.errors }">
+                                        <input type="text" pInputText autocomplete="off" formControlName="city" class="ui-inputtext" placeholder="City">
+                                        <div *ngIf="addressForm.city.errors && addressForm.city.dirty" class="error-text">
+                                            <div *ngIf="addressForm.city.errors.required">City is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.area.errors }">
+                                        <input type="text" pInputText autocomplete="off" formControlName="area" class="ui-inputtext" placeholder="Area/Landmark">
+                                        <div *ngIf="addressForm.area.errors && addressForm.area.dirty" class="error-text">
+                                            <div *ngIf="addressForm.area.errors.required">Area is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.pincode.errors }">
+                                        <input type="number" pInputText autocomplete="off" formControlName="pincode" class="ui-inputtext" placeholder="Pincode">
+                                        <div *ngIf="addressForm.pincode.errors && addressForm.pincode.dirty" class="error-text">
+                                            <div *ngIf="addressForm.pincode.errors.required">Area is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="sub-title">Professional</h4>
+                                <div class="ui-g">
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.department.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="departments.length > 0 ? departments : ''" formControlName="department" placeholder="Select your department" optionLabel="name" [showClear]="true"></p-dropdown>
+                                        <div *ngIf="newForm.department.errors && newForm.department.dirty" class="error-text">
+                                            <div *ngIf="newForm.department.errors.required">Department is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.designation.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="designations.length > 0 ? designations : ''" formControlName="designation" placeholder="Select your designation" optionLabel="name" [showClear]="true"></p-dropdown>
+                                        <div *ngIf="newForm.designation.errors && newForm.designation.dirty" class="error-text">
+                                            <div *ngIf="newForm.designation.errors.required">Designation is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.primarySkill.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="skills.length > 0 ? skills : ''" formControlName="primarySkill" placeholder="Select your primary skill" optionLabel="name" [showClear]="true"></p-dropdown>
+                                        <div *ngIf="newForm.primarySkill.errors && newForm.primarySkill.dirty" class="error-text">
+                                            <div *ngIf="newForm.primarySkill.errors.required">Primary skill is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <div class="ui-g-3 button-container">
+                                        <button type="submit" [disabled]="!newEmployeeForm.valid" class="ui-button green-btn raised-btn ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
+                                        <span class="ui-button-icon-left ui-c fa fa-fw fa-user"></span>
+                                        <span class="ui-button-text ui-c">Submit</span>
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <app-footer></app-footer> -->
+</div>

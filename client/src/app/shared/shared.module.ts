@@ -13,6 +13,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {CalendarModule} from 'primeng/calendar';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 @NgModule({
   imports: [
@@ -22,8 +24,10 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     DropdownModule,
     TableModule,
     TooltipModule,
+    MultiSelectModule,
     ToastModule,
     ToolbarModule,
+    CalendarModule,
     ConfirmDialogModule,
     SharedRoutingModule
   ],
@@ -33,10 +37,12 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     SharedRoutingModule,
     DialogModule,
     DropdownModule,
+    MultiSelectModule,
     TableModule,
     TooltipModule,
     ToastModule,
     ToolbarModule,
+    CalendarModule,
     ConfirmDialogModule,
     ReactiveFormsModule,
     HeaderComponent,

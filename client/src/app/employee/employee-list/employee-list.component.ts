@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../core/models/employee';
 import { EmployeeService } from '../../core/services/employee.service';
 import { first } from 'rxjs/operators';
-import { Message } from 'primeng/components/common/message';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 
@@ -10,7 +9,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css'],
-  providers: [ConfirmationService, MessageService]
+  providers: []
 })
 export class EmployeeListComponent implements OnInit {
   employees: Employee[];

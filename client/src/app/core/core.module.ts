@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WindowRef } from './services/window-ref';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/components/common/confirmationservice';
+import { DepartmentService } from './services/department.service';
 
 @NgModule({
   imports: [
@@ -18,7 +21,10 @@ import { WindowRef } from './services/window-ref';
   ],
   providers: [
     EmployeeService,
-    WindowRef
+    DepartmentService,
+    WindowRef,
+    ConfirmationService,
+    MessageService
   ],
   declarations: [],
   exports: [
