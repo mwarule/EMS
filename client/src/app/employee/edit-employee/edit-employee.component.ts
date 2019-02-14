@@ -65,7 +65,10 @@ export class EditEmployeeComponent implements OnInit {
     this.getEmployeeById(this.employeeId);
   }
 
-  initEditForm(){
+  /**
+  * Initializes the form
+  */
+  initEditForm() {
        // init new role form
        this.editEmployeeForm = this.formBuilder.group({
         firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
@@ -87,6 +90,9 @@ export class EditEmployeeComponent implements OnInit {
       });
   }
 
+  /**
+  * Gets the states from a specific country
+  */
   getStates() {
     if (this.addressForm.country.value !== null) {
       const countryId = this.addressForm.country.value.id;
@@ -98,6 +104,9 @@ export class EditEmployeeComponent implements OnInit {
     }
   }
 
+  /**
+   * Gets the cities from a specific state
+   */
   getCities() {
     if (this.addressForm.state.value !== null) {
       const stateId = this.addressForm.state.value.id;
@@ -113,6 +122,9 @@ export class EditEmployeeComponent implements OnInit {
 
   get addressForm() { return this.editEmployeeForm.controls.address['controls']; }
 
+  /**
+   * Gets all the departments
+   */
   getDepartments() {
     this.departments = [];
     this.depService.findAll().subscribe((res) => {
@@ -125,6 +137,9 @@ export class EditEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+   * Updates an employee
+   */
   update() {
     this.submitted = true;
     // stop here if form is invalid
@@ -172,10 +187,17 @@ export class EditEmployeeComponent implements OnInit {
         });
   }
 
+  /**
+  * Resets the form
+  */
   resetForm(form: FormGroup) {
     form.reset();
   }
 
+  /**
+  * Gets employee by employeeId
+  * @param id
+  */
   getEmployeeById(id) {
     this.empService.findById(id)
       .pipe(first())
@@ -192,6 +214,10 @@ export class EditEmployeeComponent implements OnInit {
         });
   }
 
+  /**
+  * Binds the response data to the form controls
+  * @param response
+  */
   displayEmployeeData(response) {
     const employee = response['data'];
     const department = employee.departments[0];
@@ -225,6 +251,9 @@ export class EditEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+  * Confirms the employee deletion
+  */
   confirmEmployeeDeletion() {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this employee ?',
@@ -238,6 +267,10 @@ export class EditEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+  * Deletes an employee
+  * @param empId
+  */
   deleteEmployee(empId) {
     this.messageService.clear();
     this.empService.delete(empId)

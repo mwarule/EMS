@@ -31,7 +31,9 @@ export class EmployeeListComponent implements OnInit {
     this.getEmployees();
   }
 
-  // get all the app roles
+  /**
+  * Gets employees data
+  */
   getEmployees() {
     this.employees = [];
     this.empService.findAll()
@@ -48,8 +50,12 @@ export class EmployeeListComponent implements OnInit {
       });
   }
 
+  /**
+  * Confirms employee deletion
+  * @param employee
+  */
   confirmEmployeeDeletion(employee) {
-    let empId = employee.id;
+    const empId = employee.id;
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this employee ?',
       header: 'Delete Employee',
@@ -62,14 +68,18 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
+  /**
+  * Deletes an employee
+  * @param empId
+  */
   deleteEmployee(empId) {
     this.messageService.clear();
     this.empService.delete(empId)
       .pipe(first())
       .subscribe(
       response => {
-        let data = response['data'];
-        let success = response['success'];
+        const data = response['data'];
+        const success = response['success'];
         if (success && data) {
           this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Employee deleted successfully' });
         }

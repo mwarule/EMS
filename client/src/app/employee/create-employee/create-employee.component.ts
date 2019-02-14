@@ -25,6 +25,9 @@ export class CreateEmployeeComponent implements OnInit {
   countries: any[];
   states: any[];
   cities: any[];
+  /**
+  * Creates an instance of CreateEmployee.
+  */
   constructor(private formBuilder: FormBuilder,
     private empService: EmployeeService,
     private depService: DepartmentService,
@@ -46,13 +49,15 @@ export class CreateEmployeeComponent implements OnInit {
     this.skills = [{}];
     this.getDepartments();
 
-    // get this from database.
     this.designations = this.commonService.getDesignations();
 
     this.skills = this.commonService.getSkills();
     this.countries = this.commonService.getAllCountries();
   }
 
+  /**
+  * initializes the new employee form
+  */
   initForm() {
     // init new role form
     this.newEmployeeForm = this.formBuilder.group({
@@ -75,6 +80,9 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+   * Get all the states from a specific country
+  */
   getStates() {
     if (this.addressForm.country.value !== null) {
       const countryId = this.addressForm.country.value.id;
@@ -86,6 +94,9 @@ export class CreateEmployeeComponent implements OnInit {
     }
   }
 
+  /**
+  * Get all the cities from a specific state
+  */
   getCities() {
     if (this.addressForm.state.value !== null) {
       const stateId = this.addressForm.state.value.id;
@@ -101,6 +112,9 @@ export class CreateEmployeeComponent implements OnInit {
 
   get addressForm() { return this.newEmployeeForm.controls.address['controls']; }
 
+  /**
+  * Gets the departments.
+  */
   getDepartments() {
     this.departments = [];
     this.depService.findAll().subscribe((res) => {
@@ -113,6 +127,9 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
+  /**
+  * Creates an employee.
+  */
   create() {
     this.submitted = true;
 
@@ -162,6 +179,10 @@ export class CreateEmployeeComponent implements OnInit {
         });
   }
 
+  /**
+  * Resets the form
+  * @param form
+  */
   resetForm(form: FormGroup) {
     form.reset();
   }
