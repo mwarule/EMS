@@ -27,7 +27,7 @@ module.exports = (sequelize, dataType) => {
             type: dataType.STRING
         },
         dob: {
-            type: dataType.DATE
+            type: dataType.DATEONLY
         },
         email: {
             type: dataType.STRING,

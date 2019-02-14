@@ -1,0 +1,41 @@
+[{
+        "name": "UI",
+        "code": "UI"
+    },
+    {
+        "name": "Java",
+        "code": "Java"
+    },
+    {
+        "name": "DotNet",
+        "code": "DotNet"
+    },
+    {
+        "name": "MEAN",
+        "code": "MEAN"
+    },
+    {
+        "name": "Scripting",
+        "code": "Scripting"
+    },
+    {
+        "name": "Python",
+        "code": "Python"
+    },
+    {
+        "name": "Angular 2+",
+        "code": "Angular 2+"
+    },
+    {
+        "name": "Javascript",
+        "code": "Javascript"
+    },
+    {
+        "name": "Database",
+        "code": "Database"
+    },
+    {
+        "name": "BigData",
+        "code": "BigData"
+    }
+]

@@ -1,5 +1,6 @@
+import { CommonService } from './services/common.service';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { EmployeeService } from './services/employee.service';
@@ -24,7 +25,9 @@ import { DepartmentService } from './services/department.service';
     DepartmentService,
     WindowRef,
     ConfirmationService,
-    MessageService
+    CommonService,
+    MessageService,
+    DatePipe
   ],
   declarations: [],
   exports: [

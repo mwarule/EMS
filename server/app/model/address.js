@@ -22,7 +22,7 @@ module.exports = (sequelize, dataType) => {
             validate: {
                 len: {
                     args: [5],
-                    msg: 'Area should be at least 5 characters in length'
+                    msg: 'Area should be at least 10 characters in length'
                 }
             },
             allowNull: false
@@ -31,7 +31,7 @@ module.exports = (sequelize, dataType) => {
             type: dataType.INTEGER,
             validate: {
                 len: {
-                    args: [6, 6],
+                    args: [4, 6],
                     msg: 'Invalid pincode'
                 }
             },

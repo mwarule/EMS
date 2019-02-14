@@ -12249,6 +12249,11 @@ body.main-body {
     float: right
 }
 
+.button-container button {
+    height: 32px;
+    margin: 5px;
+}
+
 .ems-new-form .sub-title {
     margin: 5px;
     font-size: 14px;

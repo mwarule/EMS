@@ -1,19 +1,151 @@
+<p-toast position="top-right" life="4000"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 <div class="layout-wrapper">
-  <app-header></app-header>
-  <div class="layout-content">
-    <div class="ui-g">
-      <div class="ui-g-12">
-        <div class="card card-w-title">
-          <h1>Edit Employee
-            <button label="Back to Employee List" pTooltip="Back to Employee List" tooltipPosition="left" pbutton="" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-              style="float:right" routerLink="/">
+    <app-header></app-header>
+    <div class="layout-content">
+        <div class="ui-g">
+            <div class="ui-g-10" style="margin:0 auto">
+                <div class="card card-w-title">
+                    <h1>Edit Employee
+                        <button label="Back to Employee List" pTooltip="Back to Employee List" tooltipPosition="left" pbutton="" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float:right" routerLink="/">
               <span class="ui-button-text ui-clickable">Back</span>
             </button>
-          </h1>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- <app-footer></app-footer> -->
-</div>
+                    </h1>
 
+                    <div class="ui-fluid ems-new-form">
+                        <form [formGroup]="editEmployeeForm" (ngSubmit)="update()">
+                            <h4 class="sub-title">Basic Details</h4>
+                            <div class="ui-g">
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.firstName.errors }">
+                                    <input type="text" pInputText autocomplete="off" formControlName="firstName" class="ui-inputtext" placeholder="First Name">
+                                    <div *ngIf="editForm.firstName.errors && editForm.firstName.dirty" class="error-text">
+                                        <div *ngIf="editForm.firstName.errors.required">First Name is required</div>
+                                        <div *ngIf="editForm.firstName.errors.minlength">First Name should be atleast 3 characters in length</div>
+                                        <div *ngIf="editForm.firstName.errors.maxlength">First Name should be maximum 25 characters in length</div>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.lastName.errors }">
+                                    <input type="text" pInputText autocomplete="off" formControlName="lastName" class="ui-inputtext" placeholder="Last Name">
+                                    <div *ngIf="editForm.lastName.errors && editForm.lastName.dirty" class="error-text">
+                                        <div *ngIf="editForm.lastName.errors.required">Last Name is required</div>
+                                        <div *ngIf="editForm.lastName.errors.minlength">Last Name should be atleast 3 characters in length</div>
+                                        <div *ngIf="editForm.lastName.errors.maxlength">Last Name should be maximum 25 characters in length</div>
+                                    </div>
+                                </div>
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.gender.errors }">
+                                    <p-dropdown [style]="{'width':'100%'}" [options]="genders" formControlName="gender" placeholder="Gender" optionLabel="name" [showClear]="true"></p-dropdown>
+                                    <div *ngIf="editForm.gender.errors && editForm.gender.dirty" class="error-text">
+                                        <div *ngIf="editForm.gender.errors.required">Gender is required</div>
+                                    </div>
+                                </div>
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.dob.errors }">
+                                    <p-calendar [style]="{'width':'100%'}" placeholder="Date of birth" formControlName="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+                                    <div *ngIf="editForm.dob.errors && editForm.dob.dirty" class="error-text">
+                                        <div *ngIf="editForm.dob.errors.required">Date of birth is required</div>
+                                    </div>
+                                </div>
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.email.errors }">
+                                    <input type="text" pInputText autocomplete="off" formControlName="email" class="ui-inputtext" placeholder="Email">
+                                    <div *ngIf="editForm.email.errors && editForm.email.dirty" class="error-text">
+                                        <div *ngIf="editForm.email.errors.required">Email is required</div>
+                                        <div *ngIf="editForm.email.errors.email && !editForm.email.errors.required">Email must be a valid email address</div>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.mobile.errors }">
+                                    <input type="number" pInputText autocomplete="off" formControlName="mobile" class="ui-inputtext" placeholder="Mobile Number">
+                                    <div *ngIf="editForm.mobile.errors && editForm.mobile.dirty" class="error-text">
+                                        <div *ngIf="editForm.mobile.errors.required">Mobile is required</div>
+                                        <div *ngIf="editForm.mobile.errors.mobile && !editForm.mobile.errors.required">Enter a valid mobile number</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div formGroupName="address">
+                                <h4 class="sub-title">Address</h4>
+                                <div class="ui-g">
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.country.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="countries.length > 0 ? countries : ''" formControlName="country" placeholder="Select country" optionLabel="name" [showClear]="true" (onChange)="getStates()"></p-dropdown>
+                                        <div *ngIf="addressForm.country.errors && addressForm.country.dirty" class="error-text">
+                                            <div *ngIf="addressForm.country.errors.required">Country is required</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.state.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="states.length > 0 ? states : ''" formControlName="state" placeholder="Select state" optionLabel="name" [showClear]="true" (onChange)="getCities()"></p-dropdown>
+                                        <div *ngIf="addressForm.state.errors && addressForm.state.dirty" class="error-text">
+                                            <div *ngIf="addressForm.state.errors.required">State is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.city.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="cities.length > 0 ? cities : ''" formControlName="city" placeholder="Select city" optionLabel="name" [showClear]="true"></p-dropdown>
+                                        <div *ngIf="addressForm.city.errors && addressForm.city.dirty" class="error-text">
+                                            <div *ngIf="addressForm.city.errors.required">City is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.area.errors }">
+                                        <input type="text" pInputText autocomplete="off" formControlName="area" class="ui-inputtext" placeholder="Area/Landmark">
+                                        <div *ngIf="addressForm.area.errors && addressForm.area.dirty" class="error-text">
+                                            <div *ngIf="addressForm.area.errors.required">Area is required</div>
+                                            <div *ngIf="addressForm.area.errors.minlength ">Area should be atleast 10 characters in length</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.pincode.errors }">
+                                        <input pInputText autocomplete="off" formControlName="pincode" class="ui-inputtext" placeholder="Pincode">
+                                        <div *ngIf="addressForm.pincode.errors && addressForm.pincode.dirty" class="error-text">
+                                            <div *ngIf="addressForm.pincode.errors.required && !addressForm.pincode.errors.number">Pincode is required</div>
+                                            <div *ngIf="addressForm.pincode.errors.minlength && !addressForm.pincode.errors.number">Pincode should be minimum 4 characters in length</div>
+                                            <div *ngIf="addressForm.pincode.errors.maxlength && !addressForm.pincode.errors.number">Pincode should be maximum 6 characters in length</div>
+                                            <div *ngIf="addressForm.pincode.errors.number && (!addressForm.pincode.errors.required || !addressForm.pincode.errors.minlength || !addressForm.pincode.errors.maxlength)">Enter a valid pincode</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="sub-title">Professional</h4>
+                                <div class="ui-g">
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.department.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="departments.length > 0 ? departments : ''" formControlName="department" placeholder="Select your department" optionLabel="name" [showClear]="true"></p-dropdown>
+                                        <div *ngIf="editForm.department.errors && editForm.department.dirty" class="error-text">
+                                            <div *ngIf="editForm.department.errors.required">Department is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.designation.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="designations.length > 0 ? designations : ''" formControlName="designation" placeholder="Select your designation" optionLabel="name" [showClear]="true"></p-dropdown>
+                                        <div *ngIf="editForm.designation.errors && editForm.designation.dirty" class="error-text">
+                                            <div *ngIf="editForm.designation.errors.required">Designation is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4" [ngClass]="{ 'has-error': editForm.primarySkill.errors }">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="skills.length > 0 ? skills : ''" formControlName="primarySkill" placeholder="Select your primary skill" optionLabel="name" [showClear]="true"></p-dropdown>
+                                        <div *ngIf="editForm.primarySkill.errors && editForm.primarySkill.dirty" class="error-text">
+                                            <div *ngIf="editForm.primarySkill.errors.required">Primary skill is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <div class="ui-g-2 button-container">
+                                        <button type="button" (click)="confirmEmployeeDeletion()" class="ui-button ui-button-danger raised-btn ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
+                                        <span class="ui-button-icon-left ui-c fa fa-fw fa-user"></span>
+                                        <span class="ui-button-text ui-c">Delete</span>
+                                    </button>
+                                    </div>
+                                    <div class="ui-g-2 button-container">
+                                        <button type="submit" [disabled]="!editEmployeeForm.valid" class="ui-button green-btn raised-btn ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
+                                        <span class="ui-button-icon-left ui-c fa fa-fw fa-user"></span>
+                                        <span class="ui-button-text ui-c">Update</span>
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <app-footer></app-footer> -->
+</div>

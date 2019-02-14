@@ -28,7 +28,7 @@ sequelize
 
 // force: true will drop the tables if it already exists
 sequelize.sync({
-    force: true
+    force: false
 }).then(() => {
     console.log('Drop and Resync with { force: false }');
     var departments = [{
@@ -54,10 +54,11 @@ const Employee = EmployeeModel(sequelize, Sequelize);
 const Department = DepartmentModel(sequelize, Sequelize);
 const Address = AddressModel(sequelize, Sequelize);
 
-Employee.Departments = Employee.belongsToMany(Department, {
+Employee.belongsToMany(Department, {
     through: EmployeeDepartment
 })
-Department.Employees = Department.belongsToMany(Employee, {
+
+Department.belongsToMany(Employee, {
     through: EmployeeDepartment
 })
 

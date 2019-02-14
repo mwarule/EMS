@@ -18,7 +18,20 @@ class EmployeeHandler {
 
     findById(req, callback) {
         const id = req.params.id;
-        Employee.findById(id)
+        Employee.findById(id, {
+                attributes: ['firstName', 'lastName', 'gender', 'dob', 'email', 'mobile',
+                    'designation', 'primarySkill'
+                ],
+                include: [{
+                        model: Department,
+                        attributes: ['id', 'name']
+                    },
+                    {
+                        model: Address,
+                        attributes: ['country', 'state', 'city', 'area', 'pincode']
+                    }
+                ]
+            })
             .then((employee) => {
                 callback.onSuccess(employee);
             })
@@ -46,7 +59,7 @@ class EmployeeHandler {
                 return emp.setDepartments(data.department);
             })
             .then((data) => {
-                callback.onSuccess(data);
+                callback.onSuccess(null, 'Employee created successfully');
             })
             .catch(Sequelize.ValidationError, function(error) {
                 let errorMessages = error.errors.map(function(elem) {
@@ -60,17 +73,25 @@ class EmployeeHandler {
     }
 
     update(req, callback) {
-        const id = req.params.id;
+        let id = req.params.id;
+        let data = req.body;
         Employee.update({
-                firstName: req.body.firstname,
-                lastName: req.body.lastname,
-                gender: req.body.gender,
-                dob: req.body.dob,
-                email: req.body.email,
-                mobile: req.body.mobile
-            }, { where: { id: id } })
+                firstName: data.firstName,
+                lastName: data.lastName,
+                gender: data.gender,
+                dob: data.dob,
+                email: data.email,
+                mobile: data.mobile,
+                designation: data.designation,
+                primarySkill: data.primarySkill,
+                addresses: data.address
+            }, {
+                where: { id: id }
+            }, {
+                include: [Employee.Addresses]
+            })
             .then((saved) => {
-                callback.onSuccess(saved);
+                callback.onSuccess(null, 'Employee updated successfully');
             })
             .catch((error) => {
                 callback.onError(error);

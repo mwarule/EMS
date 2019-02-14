@@ -1,0 +1,53 @@
+[{
+        "name": "Trainee Engineer",
+        "code": "Trainee Engineer"
+    },
+    {
+        "name": "Software Engineer",
+        "code": "Software Engineer"
+    },
+    {
+        "name": "Senior Software Engineer",
+        "code": "Senior Software Engineer"
+    },
+    {
+        "name": "System Analyst",
+        "code": "System Analyst"
+    },
+    {
+        "name": "UI Developer",
+        "code": "UI Developer"
+    },
+    {
+        "name": "Programmer Analyst",
+        "code": "Programmer Analyst"
+    },
+    {
+        "name": "Team Lead",
+        "code": "Team Lead"
+    },
+    {
+        "name": "Project Engineer",
+        "code": "Project Engineer"
+    },
+    {
+        "name": "Project Manager",
+        "code": "Project Manager"
+    },
+    {
+        "name": "Architect",
+        "code": "Architect"
+    },
+    {
+        "name": "Delivery Head",
+        "code": "Delivery Head"
+    },
+    {
+        "name": "Delivery Manager",
+        "code": "Delivery Manager"
+    },
+    {
+        "name": "Business Analyst",
+        "code": "Business Analyst"
+    }
+]

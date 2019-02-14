@@ -19,6 +19,8 @@
                                     <input type="text" pInputText autocomplete="off" formControlName="firstName" class="ui-inputtext" placeholder="First Name">
                                     <div *ngIf="newForm.firstName.errors && newForm.firstName.dirty" class="error-text">
                                         <div *ngIf="newForm.firstName.errors.required">First Name is required</div>
+                                        <div *ngIf="newForm.firstName.errors.minlength">First Name should be atleast 3 characters in length</div>
+                                        <div *ngIf="newForm.firstName.errors.maxlength">First Name should be maximum 25 characters in length</div>
                                     </div>
                                 </div>
 
@@ -26,6 +28,8 @@
                                     <input type="text" pInputText autocomplete="off" formControlName="lastName" class="ui-inputtext" placeholder="Last Name">
                                     <div *ngIf="newForm.lastName.errors && newForm.lastName.dirty" class="error-text">
                                         <div *ngIf="newForm.lastName.errors.required">Last Name is required</div>
+                                        <div *ngIf="newForm.lastName.errors.minlength">Last Name should be atleast 3 characters in length</div>
+                                        <div *ngIf="newForm.lastName.errors.maxlength">Last Name should be maximum 25 characters in length</div>
                                     </div>
                                 </div>
                                 <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.gender.errors }">
@@ -35,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="ui-g-4" [ngClass]="{ 'has-error': newForm.dob.errors }">
-                                    <p-calendar dateFormat="dd/mm/yyyy" [style]="{'width':'100%'}" placeholder="Date of birth" formControlName="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+                                    <p-calendar [style]="{'width':'100%'}" placeholder="Date of birth" formControlName="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
                                     <div *ngIf="newForm.dob.errors && newForm.dob.dirty" class="error-text">
                                         <div *ngIf="newForm.dob.errors.required">Date of birth is required</div>
                                     </div>
@@ -60,20 +64,20 @@
                                 <h4 class="sub-title">Address</h4>
                                 <div class="ui-g">
                                     <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.country.errors }">
-                                        <input type="text" pInputText autocomplete="off" formControlName="country" class="ui-inputtext" placeholder="Country">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="countries.length > 0 ? countries : ''" formControlName="country" placeholder="Select country" optionLabel="name" [showClear]="true" (onChange)="getStates()"></p-dropdown>
                                         <div *ngIf="addressForm.country.errors && addressForm.country.dirty" class="error-text">
                                             <div *ngIf="addressForm.country.errors.required">Country is required</div>
                                         </div>
                                     </div>
 
                                     <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.state.errors }">
-                                        <input type="text" pInputText autocomplete="off" formControlName="state" class="ui-inputtext" placeholder="State">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="states.length > 0 ? states : ''" formControlName="state" placeholder="Select state" optionLabel="name" [showClear]="true" (onChange)="getCities()"></p-dropdown>
                                         <div *ngIf="addressForm.state.errors && addressForm.state.dirty" class="error-text">
                                             <div *ngIf="addressForm.state.errors.required">State is required</div>
                                         </div>
                                     </div>
                                     <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.city.errors }">
-                                        <input type="text" pInputText autocomplete="off" formControlName="city" class="ui-inputtext" placeholder="City">
+                                        <p-dropdown [style]="{'width':'100%'}" [options]="cities.length > 0 ? cities : ''" formControlName="city" placeholder="Select city" optionLabel="name" [showClear]="true"></p-dropdown>
                                         <div *ngIf="addressForm.city.errors && addressForm.city.dirty" class="error-text">
                                             <div *ngIf="addressForm.city.errors.required">City is required</div>
                                         </div>
@@ -82,12 +86,16 @@
                                         <input type="text" pInputText autocomplete="off" formControlName="area" class="ui-inputtext" placeholder="Area/Landmark">
                                         <div *ngIf="addressForm.area.errors && addressForm.area.dirty" class="error-text">
                                             <div *ngIf="addressForm.area.errors.required">Area is required</div>
+                                            <div *ngIf="addressForm.area.errors.minlength ">Area should be atleast 10 characters in length</div>
                                         </div>
                                     </div>
                                     <div class="ui-g-4" [ngClass]="{ 'has-error': addressForm.pincode.errors }">
-                                        <input type="number" pInputText autocomplete="off" formControlName="pincode" class="ui-inputtext" placeholder="Pincode">
+                                        <input pInputText autocomplete="off" formControlName="pincode" class="ui-inputtext" placeholder="Pincode">
                                         <div *ngIf="addressForm.pincode.errors && addressForm.pincode.dirty" class="error-text">
-                                            <div *ngIf="addressForm.pincode.errors.required">Area is required</div>
+                                            <div *ngIf="addressForm.pincode.errors.required && !addressForm.pincode.errors.number">Pincode is required</div>
+                                            <div *ngIf="addressForm.pincode.errors.minlength && !addressForm.pincode.errors.number">Pincode should be minimum 4 characters in length</div>
+                                            <div *ngIf="addressForm.pincode.errors.maxlength && !addressForm.pincode.errors.number">Pincode should be maximum 6 characters in length</div>
+                                            <div *ngIf="addressForm.pincode.errors.number && (!addressForm.pincode.errors.required || !addressForm.pincode.errors.minlength || !addressForm.pincode.errors.maxlength)">Enter a valid pincode</div>
                                         </div>
                                     </div>
                                 </div>
